@@ -1,0 +1,19 @@
+#!/bin/zsh
+# vim: ts=8 sw=8
+me=$(basename $0 .sh)
+USAGE="usage: $me [-n num] [file...]"
+mydir=$(dirname $0)
+n=16
+while getopts :n: c
+do
+        case "$c" in
+        n)      n=${OPTARG};;
+	*)	
+		echo "${me}: unknown switch (-${OPTARG})." >&2
+		echo "${USAGE}" >&2
+		exit 1
+		;;
+        esac
+done
+shift $(expr $OPTIND - 1)
+awk -f ${mydir}/${me}.awk -v n=${n} ${*:--}

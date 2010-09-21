@@ -1,0 +1,33 @@
+#!/bin/zsh
+# vim: ts=8 sw=8
+###########################################################################
+#                       COPYRIGHT NOTICE
+#
+#       Copyright (C) 1997 VME Microsystems International Corporation
+#	International copyright secured.  All rights reserved.
+###########################################################################
+#	@(#)comment.sh 1.2 97/09/22 VMIC
+###########################################################################
+#	Format comments the way I like them
+###########################################################################
+me=$(basename $0)
+USAGE="usage: $me [-c #] [-n #] [file...]"
+# ccol=39
+# LLEN=68
+ccol=41
+LLEN=75
+while getopts :c:n: c
+do
+	case "$c" in
+	c)	ccol="$OPTARG";;
+	n)	LLEN="$OPTARG";;
+	*)	
+		echo "${me}: unknown switch (-${OPTARG})" >&2
+		echo "$USAGE" >&2
+		exit 1
+		;;
+	esac
+done
+shift $(expr $OPTIND - 1)
+expand $*								|
+awk -f $(dirname $0)/comment.awk -v ccol="${ccol}" -v LLEN="${LLEN}"

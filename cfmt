@@ -1,0 +1,23 @@
+#!/bin/zsh
+# vim: ts=8 sw=8
+PATH=/usr/local/bin:$PATH export PATH
+me=`basename $0`
+USAGE="usage: ${me} [-t] [file ...]"
+TABS='unexpand -a'
+# TABS='expand'
+NONFATAL=''
+while getopts :t c
+do
+	case "$c" in
+	t)	TABS='expand';;
+	# t)	TABS='unexpand -a';;
+	*)	echo "${me}: unknown switch (-${OPTARG})" >&2
+		NONFATAL=yes;;
+	esac
+done
+if [ "${NONFATAL}" ]; then
+	echo "${USAGE}" >&2
+	exit 1
+fi
+shift `expr $OPTIND - 1`
+cat $* | tr -d '\r' | parens | ifnest -c | comment | castfmt | eval ${TABS}

@@ -1,0 +1,5 @@
+#!/bin/zsh
+#!/bin/ksh
+PATH=/usr/local/bin:$PATH export PATH
+expand $*								|
+awk -f $(dirname $0)/parens.awk
