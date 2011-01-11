@@ -29,12 +29,6 @@ BEGIN	{
 #########################################################################
 {	conditionLine() }		# Drop nasty stuff about line
 #########################################################################
-# Handle C++ style comments by encapsulating
-/\/\//	{
-	sub( /[\/][\/]/, "/*" )		# Replace "//" with "/*"
-	$0 = $0 " */"			# Append "*/" to end comment
-}
-#########################################################################
 #/\/\*[-=*]*\*\//	{		# Pass bar comment intact
 #	print
 #	next
@@ -54,7 +48,7 @@ BEGIN	{
 #########################################################################
 # Interpret "/*-*/" as a comment bar idiom
 /\/\*[-=*][-=*]*\*\//	{
-	if( match( $0, /\/\*[-=][-=]*\*\// ) > 0 ) 	{
+	if( match( $0, /\/\*[-=][-=]*\*\// ) > 0 )	{
 		# Eat everything up until the final "*/"
 		line = substr( $0, 1, RSTART+RLENGTH-3 )
 		lineLen = length( line )
@@ -70,23 +64,12 @@ BEGIN	{
 	}
 }
 #########################################################################
-# Interpret "//-" as comment bar idiom
-/\/\/[-=*]/     {
-	if( match( $0, /\/\/[-=].*$/ ) > 0 ) 	{
-		# Eat everything up until the "//-"
-		line = substr( $0, 1, RSTART+2 )
-		lineLen = length( line )
-		c = substr( line, lineLen )
-		mid = ""
-		if( lineLen < 74 )	{
-			wid = 74 - lineLen
-			mid = sprintf( "%" wid "." wid "s", " " )
-			gsub( /./, c, mid )
-		}
-		print line mid c
-		next
-	}
+# Handle C++ style comments by encapsulating
+match( $0, /\/\// ) > 0	{
+	$0 = sprintf( "%s/* %s */", substr( $0, 1, RSTART - 1 ),
+	   substr( $0, RSTART + RLENGTH ) )
 }
+#########################################################################
 #########################################################################
 /\/\*.*\*\//	{			# Comment is complete on a single line
 	# If it has fancy literals, do as a block comment
@@ -127,7 +110,7 @@ BEGIN	{
 	# Isolate comment and add trailing padding if necessary
 	sub( /^[ ]*[\/][*][ ]*/, "" )	# Drop comment leadin
 	sub( /[ ]*[*][\/][ ]*$/, "" )	# Drop comment trailer
-	gsub( /[ 	][ 	]*/, " " ) # Squeeze whitespace in comment
+	gsub( /[	][	]*/, " " ) # Squeeze whitespace in comment
 	# comment = $0			# What is left is the commentary
 	# What is left is the commentary
 	comment = toupper( substr( $0, 1, 1 ) ) substr( $0, 2 )
@@ -146,7 +129,7 @@ BEGIN	{
 }
 #########################################################################
 # Also allow a C++ style comment
-/\/\//  {			        # C++ style comment
+/\/\//  {				# C++ style comment
 	# Compute amount of leading whitespace needed
 	if( match( $0, /^[ ][ ]*/ ) > 0 )	{
 		# Strip off leading spaces
@@ -179,8 +162,8 @@ BEGIN	{
 	}
 	# Isolate comment and add trailing padding if necessary
 	sub( /^[ ]*[\/][\/][ ]*/, "" )	# Drop comment leadin
-	sub( /[ ]*$/, "" )	        # Drop comment trailer
-	gsub( /[ 	][ 	]*/, " " ) # Squeeze whitespace in comment
+	sub( /[ ]*$/, "" )		# Drop comment trailer
+	gsub( /[	][	]*/, " " ) # Squeeze whitespace in comment
 	# comment = $0			# What is left is the commentary
 	# What is left is the commentary
 	comment = toupper( substr( $0, 1, 1 ) ) substr( $0, 2 )
@@ -191,7 +174,7 @@ BEGIN	{
 		# Add trailing spaces
 		comment = comment blanks( trailingPad )
 	}
-	comment = "// " comment 	# Add delimiters
+	comment = "// " comment		# Add delimiters
 	commentLength = length( comment )
 	# printf "comment=|%s|, l=%d\n", comment, commentLength	# FIXME
 	printf "%s%s%s%s\n", spaces, code, filler, comment
@@ -211,7 +194,7 @@ function blockComment()	{
 	sub( /\/\*.*/, "", leadin )	# Drop everything after leading spaces
 	lmin = llen = length( leadin ) + 2
 	for( ; ; )	{
-		sub( /^[ \t]*/, "" ) 		# Drop leading whitespace now
+		sub( /^[ \t]*/, "" )		# Drop leading whitespace now
 		if( $0 ~ /^\*[ \t]*$/ )	{
 			# Line contains only a "*", so treat as line break
 			flushline()
