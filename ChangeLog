@@ -1,0 +1,17 @@
+2016-02-19  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Makefile: Avoid creating dummy targets if 'make -a' is used.
+
+2011-01-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* ifnest.py: Do it in python, just for fun.
+
+2011-01-10  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* comment.awk: 1)  Drop stupid '//-' idion.  Can't imagine why I ever thought of
+	that.  2)  Correctly rewrite '// comments' into '/* comments */' form.
+
+2010-09-21  Tommy Reynolds <Tommy.Reynolds@MegaCoder.com>
+
+	* Converted to git
+
