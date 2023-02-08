@@ -12,7 +12,7 @@ Each project and every company I had to deal with used their own One True Coding
 2. What the statement of work actuall said; and
 3. What I thought the specs were after; and
 4. How the previous engineer borked their undersanding of steps #1-#4; and
-5. Oh, my <i>deity</i?, how to I get out of this one?
+5. Oh, my <i>deity</i>, how to I get out of this one?
 
 Each script was written to address a particular item where my One True Way(tm) was most likely to differ from their canonical code that met the standard buy didn't work, so they got no points for their workmanship code layout conformance.  After my keen instinct honed in on the problem, running indent(1) or its ilk to render the code back into the preferred patois' we were off to the next race against time.
 
