@@ -20,7 +20,7 @@ Each script was written to address a particular item where my One True Way(tm) w
 For the most part, the scripts (usually awk(1) pattern matcning) are simple filters and can be piped in whatever sequence you like.  Being part of a shell pipeline permits them to corrupt the original input only very seldomly -- and that is usually because of pilot error.  (Let no pilots near your code without close supervision.)
 
 ## Notes About Comments
-Single-line comments (/* foo foo */) Are always aligned on the same columns and are padded out to column 72 for the ending "*/" tag.  Yeah, used to have similar tool for FORTRAN decks.
+Single-line comments (/* foo foo */) are always aligned on the same columns and are padded out to column 72 for the ending "*/" tag.  Yeah, used to have similar tool for FORTRAN decks.
 
 Multi-line comments (/* and */ are on differing lines) construct a box comment:
 ```
