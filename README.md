@@ -14,20 +14,20 @@ Each project and every company I had to deal with used their own One True Coding
 4. How the previous engineer borked their undersanding of steps #1-#4; and
 5. Oh, my <i>deity</i?, how to I get out of this one?
 
-Each script was written to address a particular item where my One True Way(tm) was most likely to differ from their canonical code that met the standard buy didn't work, so they gnot no points for the workmanship.  After my keen instinct honed in on the problem, running indent(1) or its ilk to render the code back into the preferred patois we were off to the next race against time.
+Each script was written to address a particular item where my One True Way(tm) was most likely to differ from their canonical code that met the standard buy didn't work, so they got no points for their workmanship code layout conformance.  After my keen instinct honed in on the problem, running indent(1) or its ilk to render the code back into the preferred patois' we were off to the next race against time.
 
 ## How Do I Use This Stuff?
-For the most part, the scripts (usually awk(1) pattern matcning) are simple filters and can be piped in whatever sequence you like.  Being part of a shell pipeline permits them to corrupt the original input only very seldomly -- and that is usually because of pilot error.  (Let no pilots nears your code without close supervision.)
+For the most part, the scripts (usually awk(1) pattern matcning) are simple filters and can be piped in whatever sequence you like.  Being part of a shell pipeline permits them to corrupt the original input only very seldomly -- and that is usually because of pilot error.  (Let no pilots near your code without close supervision.)
 
 ## Notes About Comments
-Single-line comments (/* foo foo */) Are always aligned on the same column and are padded out to column 72 for the ending "*/" tag.  Yeah, used to have similar tool for FORTRAN decks.
+Single-line comments (/* foo foo */) Are always aligned on the same columns and are padded out to column 72 for the ending "*/" tag.  Yeah, used to have similar tool for FORTRAN decks.
 
 Multi-line comments (/* and */ are on differing lines) construct a box comment:
 ```
 /*
- *
- * This is my commnt stuff here to dazzle your boggle.
- *
+ **********************************************************************************
+ * This is my comment stuff here to dazzle your boggle.
+ **********************************************************************************
  */
 ```
 
