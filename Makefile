@@ -1,4 +1,4 @@
-TARGETS	:= all install install.bin install.awks uninstall uninstall.all
+TARGETS	:= all clean clobber distclean install install.bin install.awks uninstall uninstall.all
 
 .PHONEY: ${TARGETS}
 
@@ -13,6 +13,8 @@ OWNER	=$(shell id -u)
 GRP	=$(shell id -g)
 MODE	=0755
 DMODE	=0644
+
+TRASH	=$(shell [ -f .gitignore ] && cat .gitignore )
 
 define	INSTALL_BIN_template
 install:: install-${1}
@@ -37,3 +39,8 @@ uninstall:: uninstall.all
 
 uninstall.all::
 	cd ${BINDIR} && ${RM} ${SCRIPTS} ${AWKS}
+
+clean::
+	${RM} ${TRASH}
+
+clobber distclean:: clean
