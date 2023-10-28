@@ -21,7 +21,7 @@ do
 	case "$c" in
 	c)	ccol="$OPTARG";;
 	n)	LLEN="$OPTARG";;
-	*)	
+	*)
 		echo "${me}: unknown switch (-${OPTARG})" >&2
 		echo "$USAGE" >&2
 		exit 1
@@ -30,4 +30,4 @@ do
 done
 shift $(expr $OPTIND - 1)
 expand $*								|
-awk -f $(dirname $0)/comment.awk -v ccol="${ccol}" -v LLEN="${LLEN}"
+${DEBUG} awk -f ${0:h}/comment.awk -v ccol="${ccol}" -v LLEN="${LLEN}"

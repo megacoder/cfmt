@@ -1,21 +1,21 @@
 #!/bin/zsh
 # vim: ts=8 sw=8
-me=$(basename $0)
-USAGE="usage: $me [-c] [file...]"
+ME="${0:t:r}"
+USAGE="usage: ${ME} [-c] [file...]"
 doComment=0
 while getopts :c c
 do
 	case "$c" in
-	c)	
+	c)
 		doComment=1
 		;;
-	*)	
-		echo "${me}: unknown switch (-${OPTARG})" >&2
+	*)
+		echo "${ME}: unknown switch (-${OPTARG})" >&2
 		echo "$USAGE" >&2
 		exit 1
 		;;
 	esac
 done
-shift $(expr $OPTIND - 1)
+shift $(( ${OPTIND} - 1 ))
 expand $*								|
-awk -f $(dirname $0)/ifnest.awk -v doComment=$doComment
+	awk -f "${0:r}.awk" -v doComment="${doComment}"

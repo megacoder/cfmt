@@ -69,7 +69,7 @@ function after( name, l, m, r )	{
 	}
 	# Template: [token==token] --> [token == token]
 	# Insert spaces around double-character operators
-	while(match( code, /[a-zA-Z0-9)\]][\!=<>+*%-][=<>][a-zA-Z0-9)\]]/ ) > 0 ) {
+	while(match( code, /[\]a-zA-Z0-9)][!=<>+*%-][=<>][a-zA-Z0-9)\]]/ ) > 0 ) {
 		left  = substr( code, 1, RSTART - 1 )
 		mid   = substr( code, RSTART, RLENGTH )
 		right = substr( code, RSTART + RLENGTH )
@@ -161,7 +161,7 @@ function after( name, l, m, r )	{
 		code = left mid right
 	}
 	# Template: [( token )] --> [(token)]
-	# Remove spaces around token used as a cast 
+	# Remove spaces around token used as a cast
 	# while( match( code, /[ \t][(][ \t]*[a-zA-Z0-9_][a-zA-Z0-9_]*[ \t][)]/ ) > 0 ) {
 	while( match( code, /[ \t]*[(][ \t][^-+=\/%]*[)][ \t]*/ ) > 0 ) {
 		left  = substr( code, 1, RSTART - 1 )
@@ -364,4 +364,4 @@ function after( name, l, m, r )	{
 	}
 	# Finished
 	print trimRight( code comment )
-} 
+}
